@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Writing Agent</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f5f7fa; min-height: 100vh; }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 1.5rem 2rem; text-align: center;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .header h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .header p { opacity: 0.9; font-size: 0.95rem; }
+        
+        .container { display: flex; height: calc(100vh - 100px); padding: 1.5rem; gap: 1.5rem; }
+        
+        .left-panel {
+            width: 380px; min-width: 380px; background: white; border-radius: 16px;
+            padding: 1.5rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            display: flex; flex-direction: column;
+        }
+        
+        .panel-title {
+            font-size: 1.1rem; font-weight: 600; color: #1a1a2e;
+            margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .panel-title i { color: #667eea; }
+        
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; font-weight: 500; color: #4a5568; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .form-group textarea {
+            width: 100%; padding: 0.875rem; border: 2px solid #e2e8f0; border-radius: 10px;
+            font-size: 1rem; font-family: inherit; resize: vertical; min-height: 120px; transition: all 0.3s ease;
+        }
+        .form-group textarea:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15); }
+        .form-group input[type="date"] { width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 0.95rem; }
+        
+        .generate-btn {
+            width: 100%; padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; border: none; border-radius: 10px; font-size: 1.05rem; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+            transition: all 0.3s ease; margin-top: auto;
+        }
+        .generate-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4); }
+        .generate-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+        .generate-btn.loading { background: #a0aec0; }
+        
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; }
+        .stat-card { background: #f8fafc; padding: 0.875rem; border-radius: 10px; text-align: center; }
+        .stat-value { font-size: 1.25rem; font-weight: 700; color: #667eea; }
+        .stat-label { font-size: 0.75rem; color: #718096; margin-top: 0.25rem; }
+        
+        .right-panel {
+            flex: 1; background: white; border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); display: flex; flex-direction: column; overflow: hidden;
+        }
+        
+        .right-header {
+            padding: 1rem 1.5rem; border-bottom: 1px solid #e2e8f0;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .right-header h2 { font-size: 1.1rem; font-weight: 600; color: #1a1a2e; display: flex; align-items: center; gap: 0.5rem; }
+        .right-header h2 i { color: #667eea; }
+        
+        .copy-btn {
+            padding: 0.5rem 1rem; background: #f8fafc; border: 1px solid #e2e8f0;
+            border-radius: 8px; font-size: 0.85rem; cursor: pointer;
+            display: flex; align-items: center; gap: 0.4rem; transition: all 0.2s ease;
+        }
+        .copy-btn:hover { background: #667eea; color: white; border-color: #667eea; }
+        
+        .blog-content { flex: 1; padding: 2rem; overflow-y: auto; }
+        
+        .empty-state, .loading-state, .error-state {
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; height: 100%; text-align: center;
+        }
+        .empty-state { color: #a0aec0; }
+        .empty-state i { font-size: 4rem; margin-bottom: 1rem; opacity: 0.5; }
+        .empty-state h3 { font-size: 1.25rem; margin-bottom: 0.5rem; color: #718096; }
+        
+        .spinner {
+            width: 50px; height: 50px; border: 4px solid #e2e8f0;
+            border-top-color: #667eea; border-radius: 50%; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text { margin-top: 1rem; color: #718096; font-size: 1rem; }
+        .loading-subtext { color: #a0aec0; font-size: 0.85rem; margin-top: 0.5rem; }
+        
+        .error-state { color: #e53e3e; padding: 2rem; }
+        .error-state i { font-size: 3rem; margin-bottom: 1rem; }
+        .error-state p { color: #718096; max-width: 400px; }
+        
+        .blog-rendered { font-family: 'Merriweather', serif; line-height: 1.8; color: #2d3748; }
+        .blog-rendered h1 { font-size: 2rem; color: #1a1a2e; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 3px solid #667eea; }
+        .blog-rendered h2 { font-size: 1.5rem; color: #2d3748; margin-top: 2rem; margin-bottom: 1rem; }
+        .blog-rendered h3 { font-size: 1.25rem; color: #4a5568; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        .blog-rendered p { margin-bottom: 1.25rem; }
+        .blog-rendered ul, .blog-rendered ol { margin-bottom: 1.25rem; padding-left: 1.5rem; }
+        .blog-rendered li { margin-bottom: 0.5rem; }
+        .blog-rendered code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+        .blog-rendered pre { background: #1a1a2e; color: #e2e8f0; padding: 1.25rem; border-radius: 10px; overflow-x: auto; margin-bottom: 1.25rem; }
+        .blog-rendered pre code { background: transparent; padding: 0; color: inherit; }
+        .blog-rendered blockquote { border-left: 4px solid #667eea; padding-left: 1rem; margin: 1.25rem 0; color: #4a5568; font-style: italic; }
+        .blog-rendered a { color: #667eea; text-decoration: none; }
+        .blog-rendered a:hover { text-decoration: underline; }
+        
+        @media (max-width: 900px) {
+            .container { flex-direction: column; }
+            .left-panel { width: 100%; min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1><i class="fas fa-pen-fancy"></i> Blog Writing Agent</h1>
+        <p>AI-powered technical blog generator using LangGraph</p>
+    </header>
+
+    <div class="container">
+        <div class="left-panel">
+            <div class="panel-title"><i class="fas fa-cog"></i> Configuration</div>
+            
+            <div class="form-group">
+                <label for="topic">Blog Topic</label>
+                <textarea id="topic" placeholder="e.g., Write a blog on Self Attention"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="date">As-of Date (optional)</label>
+                <input type="date" id="date">
+            </div>
+            
+            <div class="stats-grid" id="stats" style="display: none;">
+                <div class="stat-card"><div class="stat-value" id="stat-sections">0</div><div class="stat-label">Sections</div></div>
+                <div class="stat-card"><div class="stat-value" id="stat-words">0</div><div class="stat-label">Words</div></div>
+                <div class="stat-card"><div class="stat-value" id="stat-mode">-</div><div class="stat-label">Mode</div></div>
+                <div class="stat-card"><div class="stat-value" id="stat-kind">-</div><div class="stat-label">Type</div></div>
+            </div>
+            
+            <button class="generate-btn" id="generateBtn" onclick="generateBlog()">
+                <i class="fas fa-magic"></i> Generate Blog
+            </button>
+        </div>
+
+        <div class="right-panel">
+            <div class="right-header">
+                <h2><i class="fas fa-file-alt"></i> Generated Blog</h2>
+                <button class="copy-btn" id="copyBtn" onclick="copyBlog()" style="display: none;">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+            </div>
+            
+            <div class="blog-content" id="blogContent">
+                <div class="empty-state" id="emptyState">
+                    <i class="fas fa-pencil-alt"></i>
+                    <h3>No blog generated yet</h3>
+                    <p>Enter a topic and click "Generate Blog" to get started</p>
+                </div>
+                
+                <div class="loading-state" id="loadingState" style="display: none;">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Generating your blog...</div>
+                    <div class="loading-subtext">This may take 30-60 seconds</div>
+                </div>
+                
+                <div class="error-state" id="errorState" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3>Generation Failed</h3>
+                    <p id="errorMessage"></p>
+                </div>
+                
+                <div class="blog-rendered" id="blogOutput" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let rawMarkdown = '';
+
+        async function generateBlog() {
+            const topic = document.getElementById('topic').value.trim();
+            const dateInput = document.getElementById('date').value;
+
+            if (!topic) { alert('Please enter a blog topic'); return; }
+
+            showState('loading');
+            const btn = document.getElementById('generateBtn');
+            btn.disabled = true;
+            btn.classList.add('loading');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+
+            try {
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ topic: topic, as_of: dateInput || null })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    rawMarkdown = data.blog_content;
+                    document.getElementById('blogOutput').innerHTML = marked.parse(data.blog_content);
+                    document.getElementById('stat-sections').textContent = data.sections_count;
+                    document.getElementById('stat-words').textContent = data.word_count.toLocaleString();
+                    document.getElementById('stat-mode').textContent = data.mode;
+                    document.getElementById('stat-kind').textContent = data.blog_kind;
+                    showState('output');
+                    document.getElementById('stats').style.display = 'grid';
+                    document.getElementById('copyBtn').style.display = 'flex';
+                } else {
+                    document.getElementById('errorMessage').textContent = data.error || 'Unknown error';
+                    showState('error');
+                }
+            } catch (error) {
+                document.getElementById('errorMessage').textContent = error.message;
+                showState('error');
+            } finally {
+                btn.disabled = false;
+                btn.classList.remove('loading');
+                btn.innerHTML = '<i class="fas fa-magic"></i> Generate Blog';
+            }
+        }
+
+        function showState(state) {
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('errorState').style.display = 'none';
+            document.getElementById('blogOutput').style.display = 'none';
+            
+            if (state === 'empty') document.getElementById('emptyState').style.display = 'flex';
+            if (state === 'loading') document.getElementById('loadingState').style.display = 'flex';
+            if (state === 'error') document.getElementById('errorState').style.display = 'flex';
+            if (state === 'output') document.getElementById('blogOutput').style.display = 'block';
+        }
+
+        function copyBlog() {
+            navigator.clipboard.writeText(rawMarkdown).then(() => {
+                const btn = document.getElementById('copyBtn');
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                btn.style.background = '#48bb78';
+                btn.style.color = 'white';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 2000);
+            });
+        }
+
+        document.getElementById('topic').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') generateBlog();
+        });
+    </script>
+</body>
+</html>
+
