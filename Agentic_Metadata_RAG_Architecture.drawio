@@ -1,0 +1,369 @@
+<mxfile host="app.diagrams.net" modified="2026-03-10T20:00:00.000Z" agent="Claude" version="21.0.0" type="device">
+  <diagram name="Agentic Metadata RAG Architecture" id="agentic-rag-metadata">
+    <mxGraphModel dx="1800" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ============================== -->
+        <!-- TITLE -->
+        <!-- ============================== -->
+        <mxCell id="title1" value="Agentic RAG for Metadata Extraction — Corrected Architecture" style="text;html=1;fontSize=22;fontStyle=1;align=center;verticalAlign=middle;whiteSpace=wrap;fillColor=none;strokeColor=none;fontColor=#1a1a2e;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="900" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- ============================== -->
+        <!-- SECTION BACKGROUNDS -->
+        <!-- ============================== -->
+        <!-- Ingestion Pipeline Background -->
+        <mxCell id="bg_ingest" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f4ff;strokeColor=#b0c4de;strokeWidth=2;dashed=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="680" width="1100" height="480" as="geometry"/>
+        </mxCell>
+        <mxCell id="bg_ingest_label" value="DATA INGESTION PIPELINE" style="text;html=1;fontSize=14;fontStyle=1;align=left;verticalAlign=top;fillColor=none;strokeColor=none;fontColor=#4a6fa5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="690" width="300" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Query &amp; Generation Background -->
+        <mxCell id="bg_query" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5fff5;strokeColor=#90c695;strokeWidth=2;dashed=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="1500" height="560" as="geometry"/>
+        </mxCell>
+        <mxCell id="bg_query_label" value="QUERY &amp; GENERATION PIPELINE (Agentic Loop)" style="text;html=1;fontSize=14;fontStyle=1;align=left;verticalAlign=top;fillColor=none;strokeColor=none;fontColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="60" y="90" width="400" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Storage Layer Background -->
+        <mxCell id="bg_storage" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#f9a825;strokeWidth=2;dashed=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="680" width="360" height="480" as="geometry"/>
+        </mxCell>
+        <mxCell id="bg_storage_label" value="STORAGE LAYER" style="text;html=1;fontSize=14;fontStyle=1;align=left;verticalAlign=top;fillColor=none;strokeColor=none;fontColor=#e65100;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="690" width="200" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ============================== -->
+        <!-- INGESTION PIPELINE (Bottom)    -->
+        <!-- ============================== -->
+
+        <!-- Raw Data Sources -->
+        <mxCell id="raw_data" value="Raw Data Sources&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(PDFs, Docs, DBs, APIs, Web)&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1040" width="180" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Information Extraction -->
+        <mxCell id="info_extract" value="Information&lt;br&gt;Extraction&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Parser / Loader)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="100" y="900" width="140" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Chunking -->
+        <mxCell id="chunking" value="Intelligent&lt;br&gt;Chunking&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Semantic / Fixed / Recursive)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="320" y="900" width="160" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Extraction Agent (LLM) -->
+        <mxCell id="extract_agent" value="Extraction Agent&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(LLM for Metadata Extraction)&lt;/font&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;fontStyle=1;fontSize=12;size=20;" vertex="1" parent="1">
+          <mxGeometry x="540" y="895" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Schema Definition -->
+        <mxCell id="schema_def" value="Metadata Schema&lt;br&gt;Definition&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(JSON Schema / Pydantic)&lt;/font&gt;" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=0.15;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1040" width="160" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Schema Validation -->
+        <mxCell id="schema_valid" value="Schema&lt;br&gt;Validation&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Validate &amp;amp; Retry)&lt;/font&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="810" y="885" width="150" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Retry arrow back to Extraction Agent -->
+        <mxCell id="retry_arrow" value="Retry on&lt;br&gt;Failure" style="edgeStyle=orthogonalEdgeStyle;curved=1;html=1;strokeColor=#cc0000;fontColor=#cc0000;fontSize=10;fontStyle=2;dashed=1;dashPattern=5 3;" edge="1" parent="1" source="schema_valid" target="extract_agent">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="885" y="1050"/>
+              <mxPoint x="640" y="1050"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Embedding Model (Ingestion) -->
+        <mxCell id="embed_ingest" value="Embedding&lt;br&gt;Model&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Ingestion-Time)&lt;/font&gt;" style="shape=image;html=1;verticalAlign=bottom;verticalLabelPosition=middle;labelPosition=right;align=left;imageAspect=0;image=;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;rounded=1;whiteSpace=wrap;fontStyle=1;fontSize=12;imageWidth=0;imageHeight=0;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="770" width="100" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Actually, let me redo embed_ingest as a simple rounded rect -->
+        <mxCell id="embed_ingest2" value="Embedding Model&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Ingestion-Time)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="990" y="900" width="140" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- ============================== -->
+        <!-- STORAGE LAYER                  -->
+        <!-- ============================== -->
+
+        <!-- Vector Database -->
+        <mxCell id="vector_db" value="Vector&lt;br&gt;Database&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Pinecone / Qdrant /&lt;br&gt;Weaviate / Chroma)&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="760" width="160" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Metadata Store (PostgreSQL) -->
+        <mxCell id="metadata_db" value="Metadata Store&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(PostgreSQL / MongoDB)&lt;br&gt;Structured Metadata&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#a0522d;fontColor=#ffffff;strokeColor=#6D1F00;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="920" width="160" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Document Store -->
+        <mxCell id="doc_store" value="Document Store&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Original Chunks + Context)&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#76608a;fontColor=#ffffff;strokeColor=#432D57;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="1070" width="160" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- ============================== -->
+        <!-- INGESTION ARROWS               -->
+        <!-- ============================== -->
+        <mxCell id="a1" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#4a6fa5;" edge="1" parent="1" source="raw_data" target="info_extract">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#4a6fa5;" edge="1" parent="1" source="info_extract" target="chunking">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#4a6fa5;" edge="1" parent="1" source="chunking" target="extract_agent">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3b" value="Schema&lt;br&gt;Guides Extraction" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=1;strokeColor=#d6b656;dashed=1;fontSize=10;fontColor=#b8860b;" edge="1" parent="1" source="schema_def" target="extract_agent">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a4" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#4a6fa5;" edge="1" parent="1" source="extract_agent" target="schema_valid">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a5" value="Valid" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#2e7d32;fontColor=#2e7d32;fontSize=10;fontStyle=1;" edge="1" parent="1" source="schema_valid" target="embed_ingest2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Embed to Vector DB -->
+        <mxCell id="a6" value="Embeddings" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#2D7600;fontSize=10;fontColor=#2D7600;" edge="1" parent="1" source="embed_ingest2" target="vector_db">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Schema Valid to Metadata DB -->
+        <mxCell id="a7" value="Structured&lt;br&gt;Metadata" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#6D1F00;fontSize=10;fontColor=#6D1F00;" edge="1" parent="1" source="schema_valid" target="metadata_db">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="885" y="860"/>
+              <mxPoint x="1170" y="860"/>
+              <mxPoint x="1170" y="970"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Chunking to Doc Store -->
+        <mxCell id="a8" value="Raw Chunks" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#432D57;fontSize=10;fontColor=#432D57;" edge="1" parent="1" source="chunking" target="doc_store">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="1110"/>
+              <mxPoint x="1230" y="1110"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ============================== -->
+        <!-- QUERY PIPELINE (Top)           -->
+        <!-- ============================== -->
+
+        <!-- User -->
+        <mxCell id="user" value="User Query" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="80" y="200" width="80" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Query Embedding -->
+        <mxCell id="embed_query" value="Embedding&lt;br&gt;Model&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Query-Time)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="230" y="210" width="130" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- AGENTIC ORCHESTRATOR -->
+        <mxCell id="orchestrator" value="🤖 Agentic Orchestrator&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(LLM Agent — Plans, Routes,&lt;br&gt;Decides Retrieval Strategy)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ff6600;fontColor=#ffffff;strokeColor=#cc5200;fontStyle=1;fontSize=14;arcSize=20;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="170" width="250" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Hybrid Retriever -->
+        <mxCell id="retriever" value="Hybrid Retriever&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Vector Search +&lt;br&gt;Metadata Filtering)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;fontStyle=1;fontSize=12;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="360" width="170" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- SQL/Metadata Query -->
+        <mxCell id="sql_query" value="Metadata Query&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(SQL / Filter on&lt;br&gt;Structured Fields)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a0522d;fontColor=#ffffff;strokeColor=#6D1F00;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="710" y="360" width="160" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Re-Ranker -->
+        <mxCell id="reranker" value="Re-Ranker&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Cross-Encoder /&lt;br&gt;Cohere Rerank)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e040fb;fontColor=#ffffff;strokeColor=#aa00ff;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="480" y="510" width="160" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Relevance Check -->
+        <mxCell id="relevance_check" value="Relevance&lt;br&gt;Check" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="730" y="490" width="120" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Generation LLM -->
+        <mxCell id="gen_llm" value="Generation LLM&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Answer Synthesis)&lt;/font&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;fontStyle=1;fontSize=13;size=20;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="330" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Output -->
+        <mxCell id="output" value="Generated&lt;br&gt;Response" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=13;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="1320" y="330" width="140" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Citation/Source -->
+        <mxCell id="citations" value="Citations &amp;amp;&lt;br&gt;Source Links&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Provenance)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1320" y="450" width="140" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- ============================== -->
+        <!-- QUERY PIPELINE ARROWS          -->
+        <!-- ============================== -->
+
+        <!-- User to Embed -->
+        <mxCell id="q1" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#2e7d32;" edge="1" parent="1" source="user" target="embed_query">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Embed to Orchestrator -->
+        <mxCell id="q2" value="Query Vector" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#2e7d32;fontSize=10;fontColor=#2e7d32;" edge="1" parent="1" source="embed_query" target="orchestrator">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- User directly to Orchestrator (raw query) -->
+        <mxCell id="q2b" value="Raw Query" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=1;strokeColor=#999999;dashed=1;fontSize=10;fontColor=#666666;" edge="1" parent="1" source="user" target="orchestrator">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="170"/>
+              <mxPoint x="565" y="170"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Orchestrator to Retriever -->
+        <mxCell id="q3" value="Vector&lt;br&gt;Search" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#2e7d32;fontSize=10;fontColor=#2e7d32;" edge="1" parent="1" source="orchestrator" target="retriever">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Orchestrator to SQL Query -->
+        <mxCell id="q4" value="Metadata&lt;br&gt;Filter" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#6D1F00;fontSize=10;fontColor=#6D1F00;" edge="1" parent="1" source="orchestrator" target="sql_query">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Retriever to Vector DB (query) -->
+        <mxCell id="q5" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#2D7600;dashed=1;" edge="1" parent="1" source="retriever" target="vector_db">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="565" y="660"/>
+              <mxPoint x="1310" y="660"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- SQL Query to Metadata DB (query) -->
+        <mxCell id="q6" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#6D1F00;dashed=1;" edge="1" parent="1" source="sql_query" target="metadata_db">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="790" y="640"/>
+              <mxPoint x="1400" y="640"/>
+              <mxPoint x="1400" y="970"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Retriever to Re-Ranker -->
+        <mxCell id="q7" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#aa00ff;" edge="1" parent="1" source="retriever" target="reranker">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- SQL to Re-Ranker -->
+        <mxCell id="q7b" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#aa00ff;" edge="1" parent="1" source="sql_query" target="reranker">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="790" y="470"/>
+              <mxPoint x="680" y="470"/>
+              <mxPoint x="680" y="545"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Re-Ranker to Relevance Check -->
+        <mxCell id="q8" value="Top-K Results" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#aa00ff;fontSize=10;fontColor=#7b1fa2;" edge="1" parent="1" source="reranker" target="relevance_check">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Relevance Check — re-retrieve loop -->
+        <mxCell id="q9_retry" value="Not Relevant →&lt;br&gt;Reformulate" style="edgeStyle=orthogonalEdgeStyle;curved=1;html=1;strokeColor=#cc0000;fontColor=#cc0000;fontSize=10;fontStyle=2;dashed=1;dashPattern=5 3;strokeWidth=2;" edge="1" parent="1" source="relevance_check" target="orchestrator">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="920" y="540"/>
+              <mxPoint x="920" y="140"/>
+              <mxPoint x="565" y="140"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Relevance Check → Generation LLM -->
+        <mxCell id="q10" value="Relevant ✓" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;strokeColor=#2e7d32;fontSize=10;fontColor=#2e7d32;fontStyle=1;" edge="1" parent="1" source="relevance_check" target="gen_llm">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="900" y="540"/>
+              <mxPoint x="900" y="370"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Gen LLM to Output -->
+        <mxCell id="q11" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=3;strokeColor=#2e7d32;" edge="1" parent="1" source="gen_llm" target="output">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Gen LLM to Citations -->
+        <mxCell id="q12" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=1;strokeColor=#82b366;dashed=1;" edge="1" parent="1" source="gen_llm" target="citations">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ============================== -->
+        <!-- STEP NUMBER LABELS             -->
+        <!-- ============================== -->
+        <mxCell id="s1" value="①" style="text;html=1;fontSize=18;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#ff6600;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1020" width="30" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2" value="②" style="text;html=1;fontSize=18;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#ff6600;" vertex="1" parent="1">
+          <mxGeometry x="100" y="880" width="30" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3" value="③" style="text;html=1;fontSize=18;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#ff6600;" vertex="1" parent="1">
+          <mxGeometry x="320" y="880" width="30" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4" value="④" style="text;html=1;fontSize=18;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#ff6600;" vertex="1" parent="1">
+          <mxGeometry x="540" y="875" width="30" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="s5" value="⑤" style="text;html=1;fontSize=18;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#ff6600;" vertex="1" parent="1">
+          <mxGeometry x="810" y="870" width="30" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="s6" value="⑥" style="text;html=1;fontSize=18;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#ff6600;" vertex="1" parent="1">
+          <mxGeometry x="990" y="880" width="30" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Query step labels -->
+        <mxCell id="qs1" value="❶" style="text;html=1;fontSize=18;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="60" y="190" width="30" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="qs2" value="❷" style="text;html=1;fontSize=18;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="430" y="150" width="30" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="qs3" value="❸" style="text;html=1;fontSize=18;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="460" y="340" width="30" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="qs4" value="❹" style="text;html=1;fontSize=18;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="460" y="495" width="30" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="qs5" value="❺" style="text;html=1;fontSize=18;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="720" y="470" width="30" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="qs6" value="❻" style="text;html=1;fontSize=18;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="310" width="30" height="30" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
